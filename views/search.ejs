@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=viewport content="width=device-width, initial-scale=1">
+        <title>Search a movie</title>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+        <link rel="stylesheet" href="/stylesheets/search.css">
+        <link rel="stylesheet" href="/stylesheets/navbar.css">
+    </head>
+    
+    <body>
+        <% include partials/navMenu %>
+        <!--SEARCH FORM-->
+        <div class="ui container centered">
+            <form class="ui form" action="/movies/search" method="GET">
+                <h1 class="ui header">Search for a movie</h1>
+                <div class="field">
+                    <input id="movieInput" type="text" name="search" placeholder="Movie name" required>
+                </div>
+                <input type="submit" value="Search" class="ui orange submit button">
+            </form>
+            
+            <!-- TOP PAGINATION -->
+             <% if (data.total_pages > 1) { %>
+                <div class="ui pagination menu right floated">
+                    <span class="item">
+                            <!-- Showing current Page -->
+                            <!-- Just after search Page is always 1 / Total Pages -->
+                            <% if (isNaN(parseInt(page))) { %>
+                                Page 1/<%= data.total_pages %>
+                            <% } %>
+                            <!-- If Page is any number, show it / Total Pages -->
+                            <% if (parseInt(page)) { %>
+                                Page <%= parseInt(page) %>/<%= data.total_pages %>
+                            <% } %>
+                    </span>
+                    <!--Left Arrow-->
+                    <% if (parseInt(page) > 1) { %>
+                        <a href="search?search=<%= query %>&page=<%= parseInt(page) - 1 %>" class="item pagePrevious"><</a>
+                    <% }; %>
+                    <!--Page Number Buttons-->
+                    <% for (var i = 0; i < data.total_pages; i++) { %>
+                        <a href="search?search=<%= query %>&page=<%= i + 1 %>" class="paginationItem item page<%= i + 1 %>">
+                            <%= i + 1 %>
+                        </a>
+                    <% }; %>
+                    <!--Right Arrow-->
+                    <% if (parseInt(page) !== data.total_pages && !(isNaN(parseInt(page)))) { %>
+                        <a href="search?search=<%= query %>&page=<%= parseInt(page) + 1 %>" class="item pageNext">></a>
+                    <% } %>
+                    <% if (isNaN(parseInt(page))) { %>
+                        <a href="search?search=<%= query %>&page=2" class="item pageNext">></a>
+                    <% } %>
+                </div>
+            <% }; %>
+                
+            <!--Searched Movies-->
+            <div class="ui divided items">
+                <% data.results.forEach(function(movie) { %>
+                    <div class="item">
+                        <div class="image">
+                            <img src="http://image.tmdb.org/t/p/w500<%= movie.poster_path %>">
+                        </div>
+                        <div class="content">
+                            <a class="header" href="/movies/search/movieDetail?id=<%= movie.id %>"><%= movie.title %></a>
+                            <div class="meta">
+                                <span><%= new Date(movie.release_date).toLocaleString(0, {year: "numeric"}) %></span>
+                            </div>
+                            <div class="meta">
+                                <span>
+                                    <% for (var i = 1; i < movie.vote_average / 2; i++) { %>
+                                        <i class="star icon"></i>
+                                    <% }; %>
+                                    <% if (movie.vote_average / 2 - Math.floor(movie.vote_average / 2) > 0.25 && movie.vote_average / 2 - Math.floor(movie.vote_average / 2) < 0.75) { %>
+                                        <i class="star half icon"></i>
+                                    <% } %>
+                                    <% if (movie.vote_average / 2 - Math.floor(movie.vote_average / 2) >= 0.75) { %>
+                                        <i class="star icon"></i>
+                                    <% } %>
+                                </span><span>(<%= movie.vote_count %> votes)</span>
+                            </div>
+                            <div class="description">
+                                <p><%= movie.overview %></p>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+            
+            <!-- BOTTOM PAGINATION - same as on top -->
+            <% if (data.total_pages > 1) { %>
+                <div class="ui pagination menu right floated">
+                    <% if (parseInt(page) > 1) { %>
+                        <a href="search?search=<%= query %>&page=<%= parseInt(page) - 1 %>" class="item pagePrevious"><</a>
+                    <% }; %>
+                    <% for (var i = 0; i < data.total_pages; i++) { %>
+                        <a href="search?search=<%= query %>&page=<%= i + 1 %>" class="paginationItem item page<%= i + 1 %>">
+                            <%= i + 1 %>
+                        </a>
+                    <% }; %>
+                    <% if (parseInt(page) !== data.total_pages && !(isNaN(parseInt(page)))) { %>
+                        <a href="search?search=<%= query %>&page=<%= parseInt(page) + 1 %>" class="item pageNext">></a>
+                    <% } %>
+                    <% if (isNaN(parseInt(page))) { %>
+                        <a href="search?search=<%= query %>&page=2" class="item pageNext">></a>
+                    <% } %>
+                </div>
+            <% }; %>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+        <script src="/scripts/mobileMenu.js"></script>
+    </body>    
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=viewport content="width=device-width, initial-scale=1">
+        <title>Yummy Movies List</title>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+        <link rel="stylesheet" href="/stylesheets/movies.css">
+        <link rel="stylesheet" href="/stylesheets/navbar.css">
+    </head>
+    
+    <body>
+        
+        <% include partials/navMenu %>
+        
+        <div id="content">
+            <h1 id="header" class="ui header centered">Movies List</h1>
+            <div class="ui cards centered grid">
+                <% movies_db.forEach(function(movie) { %>
+                    <div class="card twelve wide mobile six wide tablet four wide computer three wide large screen two wide widescreen column">
+                        <a class="image" href="/movies/<%= movie.url %>">
+                            <img src="<%= movie.image %>">
+                        </a>
+                        <div class="content">
+                            <a class="header ui" href="/movies/<%= movie.url %>">
+                                <%= movie.name %>
+                            </a>
+                            <div class="meta">
+                                <%= movie.year %>
+                            </div>
+                            <div class="description">
+                                <%= movie.description %>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <span><i class="comment icon"></i> <%= movie.comments.length %> <% if (movie.comments.length === 1) { %>
+                                                                                                comment
+                                                                                            <% } %>
+                                                                                            <% if (movie.comments.length === 0 || movie.comments.length > 1) { %>
+                                                                                                comments
+                                                                                            <% } %>
+                            </span>
+                            <a class="ui right floated orange tiny button" href="/movies/<%= movie.url %>">More Info</a>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        
+        
+        <script   src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
+        <script src="/scripts/mobileMenu.js"></script>
+    </body>    
+</html>

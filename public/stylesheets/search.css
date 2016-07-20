@@ -1,0 +1,30 @@
+.container {
+    margin-top: 50px;
+}
+
+
+.ui.menu.grid>.computer.only.row {
+  padding:0;
+}
+.ui.menu.grid>.tablet.only.row {
+  padding:0;
+}
+.ui.menu.grid>.mobile.only.row {
+  padding:0;
+}
+.ui.menu.grid>.mobile.only.row>#mobileMenu {
+  padding:0;
+  margin:0;
+}
+
+#mobileMenu {
+    display: none;
+}
+
+.ui.menu {
+    border-radius: 0;
+}
+
+.pagination {
+    margin: 10px 0 !important;
+}

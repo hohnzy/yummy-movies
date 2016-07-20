@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=viewport content="width=device-width, initial-scale=1">
+        <title><%= movieDetail_db.name %> | Yummy Movies</title>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+        <script src="/scripts/moment.js"></script>
+        <link rel="stylesheet" href="/stylesheets/movieDetail.css">
+        <link rel="stylesheet" href="/stylesheets/navbar.css">
+    </head>
+    
+    <body>
+        <% include partials/navMenu %>
+        <div class="ui stackable grid container">
+            <div class="row">
+                <div class="ten wide column">
+                    <h1 class="ui header"><%= movieDetail_db.name %></h1>
+                    <h4 class="ui header"><%= movieDetail_db.year %></h4>
+                    <p><%= movieDetail_db.description %></p>
+                    
+                </div>
+                <div class="six wide column">
+                    <img src="<%= movieDetail_db.image %>">
+                </div>
+            </div>
+        </div>
+        <div class="ui comments container">
+            <h3 class="ui dividing header">Comments</h3>
+            <% movieDetail_db.comments.forEach(function(comment) { %>
+                <div class="comment">
+                    <div class="content">
+                        <span class="author"><%= comment.author %></span>
+                        <div class="metadata">
+                            <span class="date"><%= new Date(comment.date).toLocaleString(0, {hour: "numeric", minute: "numeric", day: "numeric", month: "short", year: "numeric"}) %></span>
+                        </div>
+                        <div class="text"><%= comment.text %></div>
+                    </div>
+                </div>
+            <% }) %>
+            <form class="ui reply form" action="/movies/<%= movieDetail_db.url %>/comments" method="POST">
+                <div class="field">
+                    <input type="text" name="text" placeholder="Add a comment...">
+                </div>
+                <input class="ui orange submit icon button right floated" type="submit" value="Add Comment">
+            </form>
+        </div>
+            
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+        <script src="/scripts/mobileMenu.js"></script>
+    </body>    
+</html>

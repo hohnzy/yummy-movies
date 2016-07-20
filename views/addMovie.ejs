@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=viewport content="width=device-width, initial-scale=1">
+        <title>Yummy Movies List</title>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+        <link rel="stylesheet" href="/stylesheets/addMovie.css">
+        <link rel="stylesheet" href="/stylesheets/navbar.css">
+    </head>
+    
+    <body>
+        <% include partials/navMenu %>
+        
+        <div class="ui container centered">
+            <form class="ui form" action="/movies" method="POST">
+                <h4 class="ui header">Add another movie</h4>
+                <div class="fields">
+                    <div class="seven wide field">
+                        <label>Movie name</label>
+                        <input id="movieInput" type="text" name="name" placeholder="Movie name" required>
+                    </div>
+                    <div class="three wide field">
+                        <label>Year of creation</label>
+                        <input type="text" name="year" placeholder="Year">
+                    </div>
+                    <div class="six wide field">
+                        <label>Image</label>
+                        <input type="text" name="image" placeholder="Image url adress">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Description</label>
+                    <textarea name="description" placeholder="Write short movie description here..."></textarea>
+                </div>
+                <input type="submit" value="Add" class="ui huge orange right floated submit button">
+            </form>
+        </div>
+        
+        
+        <script   src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
+        <script src="/scripts/mobileMenu.js"></script>
+    </body>    
+</html>

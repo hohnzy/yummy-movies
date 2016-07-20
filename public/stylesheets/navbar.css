@@ -1,0 +1,21 @@
+#mobileMenu {
+    display: none;
+}
+
+.ui.menu {
+    border-radius: 0;
+}
+
+.ui.menu.grid>.computer.only.row {
+  padding:0;
+}
+.ui.menu.grid>.tablet.only.row {
+  padding:0;
+}
+.ui.menu.grid>.mobile.only.row {
+  padding:0;
+}
+.ui.menu.grid>.mobile.only.row>#mobileMenu {
+  padding:0;
+  margin:0;
+}

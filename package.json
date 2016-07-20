@@ -1,0 +1,18 @@
+{
+  "name": "yummy-movies",
+  "version": "0.0.1",
+  "description": "Basic move review page (Node.JS study project).",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jan Dvořák",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.14",
+    "request": "^2.72.0"
+  }
+}
